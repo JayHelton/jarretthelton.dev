@@ -27,7 +27,7 @@ collections:
         name: "tags"
         multiple: true
         create: true
-        options: ["Tags", "created", "from", "config.yml"]
+        options: ["Tags", "created", "from", "config.yml", "rust", "python", "golang", "javascript", "cryptography", "webauthn", "cybersecurity", "authentication", "oauth2", "ethicalhacking", "hackthebox", "cryptohack"]
   - label: "Settings"
     name: "settings"
     editor:

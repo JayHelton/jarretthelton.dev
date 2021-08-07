@@ -2,7 +2,7 @@
   {% set postslist = collections.post %}
   <div class="container px-5 py-24 grid divide-y divide-white">
     {% for post in postslist | reverse %}
-    {% if !post.data.draft %}
+    {% if not post.data.draft %}
     <a  href="{{ post.url | url }}"> 
       <div class="hover:bg-gray-600 p-8 rounded-l-lg">
         <div class="mb-4">
