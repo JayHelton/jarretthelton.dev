@@ -1,0 +1,26 @@
+<section class="container body-font overflow-hidden">
+  {% set postslist = collections.post %}
+  <div class="container px-5 py-24 grid divide-y divide-white">
+    {% for post in postslist | reverse %}
+    {% if !post.data.draft %}
+    <a  href="{{ post.url | url }}"> 
+      <div class="hover:bg-gray-600 p-8 rounded-l-lg">
+        <div class="mb-4">
+            <h2 class="text-3xl font-medium title-font">{{post.data.title}}</h2>
+        </div>
+
+        <div class="mb-4 text-gray-100">
+            <h2 class="text-md">{{post.data.description}}</h2>
+        </div>
+        <div class="flex-shrink-0 flex flex-row">
+          {% for tag in post.data.tags %}
+          <span class="rounded-full py-1 px-2 mr-2 bg-pink-700 text-sm">{{tag}}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </a>
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+

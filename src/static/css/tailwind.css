@@ -1,20 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind colors;
 
 /*Your Custom CSS Goes here*/
-
-h1 {
-  @apply text-4xl tracking-tighter mb-3 text-center lg:text-7xl;
-}
-
-h3 {
-  @apply text-2xl font-bold mb-3;
-}
 
 /* Syntax Highlighting*/
 
 body :not(pre) > code[class*="language-"],
 body pre[class*="language-"] {
-  @apply bg-gray-800;
+  @apply bg-gray-900;
 }
