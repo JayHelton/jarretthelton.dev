@@ -2,3 +2,13 @@
 items:
   - text: Home 
     url: "/"
+  - text: Cryptography 
+    url: "/cryptography"
+  - text: Hacking 
+    url: "/hacking"
+  - text: Programming 
+    url: "/programming"
+  - text: Anime 
+    url: "/anime"
+  - text: Gaming 
+    url: "/gaming"

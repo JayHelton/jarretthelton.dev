@@ -1,10 +1,13 @@
 <div class="container flex px-5 pt-24 pb-15 md:flex-row flex-col">
   <div class="container px-8">
     <h1 class="title-font text-3xl mb-4 font-medium">
-      Jarrett Helton
+      {{ title }} 
     </h1>
     <h4 class="title-font text-xl">
-      Software Engineer
-    </h1>
+      {{ description }}
+    </h4>
+    {% if intro %}
+    <p class="mt-10"> {{intro}} </p>
+    {% endif %}
   </div>
 </div>
