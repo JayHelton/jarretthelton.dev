@@ -97,7 +97,7 @@ print(flag)
 
 > I've hidden my data using XOR with a single byte. Don't forget to decode from hex first.
 
-This challenge shows a more brute force method of decrypting. Though as you can see, its only useful if you know at least part of the original plain text.
+This challenge shows a brute force method of decrypting. Though as you can see, its only useful if you know at least part of the original plain text.
 
 ```python
 from pwn import xor
@@ -115,21 +115,22 @@ for i in range(0, 256):
 
 > I've encrypted the flag with my secret key, you'll never be able to guess it.
 
-Lastly, this one took me for a bit of a loop. I went around in circles quite a bit.
+Lastly, this one took me for a bit of a loop. I went around in circles for a bit. I was thrown off by the fact that the  encrypted messaged was so long, yes we only knew 8 of the values of the decryped message.
+
+After some thought, I decided to just XOR the first 7 characters of the message with the first half of the flag. This result in a portion of the key: `myXORke`. It was then a no brainer what the real key was. I wanted to go the extra step and see if XOR'ing the last character of the flag format with the last character of the message would give me what I knew was the final key. It worked!
 
 ```python
 #! /usr/bin/python3
 from pwn import xor
 
-encrypted_msg = bytes.fromhex("0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104")
+encrypted_msg = bytes.fromhex(
+    "0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104"
+)
+
 flag_format = b"crypto{"
-
-key = [o1 ^ o2 for (o1, o2) in zip(encrypted_msg, flag_format)] + [ord("y")]
-
-key_len = len(key)
-flag = xor(bytes(key), encrypted_msg)
-
-print("Flag:")
+key = xor(encrypted_msg[:7], flag_format) + xor(encrypted_msg[-1], "}")
+print(key)
+flag = xor(key, encrypted_msg)
 print(flag)
 ```
 
