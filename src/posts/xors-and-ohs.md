@@ -20,7 +20,7 @@ tags:
 
 Over the past several months, I have been doing Capture the Flags challenges on [Cryptohack](https://cryptohack.org). Cryptohack is a platform for learning practical cryptography with game-like challenges. I love the platform because it doesn't require you to leetcode the solution with the best Big-O time complexity. Instead, you just need to get the flag any way possible.
 
- XOR is one of those bit operators that escapes the mainstream spotlight. It's not a fancy framework or language making its way through the industry, but XOR is a fundamental part of what makes the internet and our software safe. Before we dive into code examples, we should cover what XOR is and how it's used in cryptography.
+ XOR is one of those bit operators that escape the mainstream spotlight. It's not a fancy framework or language making its way through the industry, but XOR is a fundamental part of what makes the internet and our software safe. Before we dive into code examples, we should cover what XOR is and how it's used in cryptography.
 
 #### The Basics
 
@@ -43,7 +43,7 @@ Decryption using XOR looks exactly like encryption, but reversed:
 
 That's cool and all. But why is it so useful? 
 
-Many asymmetric and symmetric cryptography algorithms use XOR as a component. This is due to the fact that given a secret key XOR'd against some plaintext message, the output of the operation, known as the ciphertext, is indistuigishable from a random set of bits. An attacker that has access to the encrypted message cannot tell the different between a correct and incorrect decryption result without either the key or the original message. When an encrypted set of bits has a set bit, you **cannot** **tell** whether the key or the message had a set or unset bit resulting in a 1 from the XOR operation. 
+Many asymmetric and symmetric cryptography algorithms use XOR as a component. This is due to the fact that given a secret key XOR'd against some plaintext message, the output of the operation, known as the ciphertext, is indistinguishable from a random set of bits. An attacker that has access to the encrypted message cannot tell the difference between a correct and incorrect decryption result without either the key or the original message. When an encrypted set of bits has a set bit, you **cannot** **tell** whether the key or the message had a set or unset bit resulting in a 1 from the XOR operation. 
 
 Because of this, the one-time pad, or XOR cipher, is a truly unbreakable encryption algorithm if you only use a secret key once (key reuse with an XOR cipher is a big no-no). It's not very practical, because the key would have to be as long as the message so that the XOR has enough bits to operate on. This is why we have Steam Ciphers... That's a whole different rabbit hole though.
 
@@ -69,7 +69,7 @@ print(result)
 
 > Below is a series of outputs where three random keys have been XOR'd together and with the flag. Use the above properties to undo the encryption in the final line to obtain the flag.
 
-I found this challange particularly interesting. It does a great job of highlighting XOR properties and how key reuse can be dangerous even in conjunction with other keys. It is not a real-world example, but it proves several concepts.
+I found this challenge particularly interesting. It does a great job of highlighting XOR properties and how key reuse can be dangerous even in conjunction with other keys. It is not a real-world example, but it proves several concepts.
 
 ```python
 #! /usr/bin/python3
@@ -115,9 +115,9 @@ for i in range(0, 256):
 
 > I've encrypted the flag with my secret key, you'll never be able to guess it.
 
-Lastly, this one took me for a bit of a loop. I went around in circles for a bit. I was thrown off by the fact that the  encrypted messaged was so long, yes we only knew 8 of the values of the decryped message.
+Lastly, this one took me for a bit of a loop. I went around in circles for a bit. I was thrown off by the fact that the  encrypted messaged was so long, yes we only knew 8 of the values of the decrypted message.
 
-After some thought, I decided to just XOR the first 7 characters of the message with the first half of the flag. This result in a portion of the key: `myXORke`. It was then a no brainer what the real key was. I wanted to go the extra step and see if XOR'ing the last character of the flag format with the last character of the message would give me what I knew was the final key. It worked!
+After some thought, I decided to just XOR the first 7 characters of the message with the portion of the flag. This result in a portion of the key: `myXORke`. It was then a no brainer what the real key was. I wanted to go the extra step and see if XOR'ing the last character of the flag format with the last character of the message would give me what I knew was the final key. It worked!
 
 ```python
 #! /usr/bin/python3
