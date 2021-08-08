@@ -5,7 +5,7 @@ description: WebAuthn is an amazing specification that makes authentication and
   library, let's look at how we can use WebAuthn as a second factor.
 author: Jarrett Helton
 date: 2021-08-08T20:23:48.134Z
-draft: true
+draft: false
 tags:
   - javascript
   - cryptography
