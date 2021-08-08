@@ -115,7 +115,7 @@ for i in range(0, 256):
 
 > I've encrypted the flag with my secret key, you'll never be able to guess it.
 
-Lastly, this one took me for a bit of a loop. I went around in circles quite a.bit, 
+Lastly, this one took me for a bit of a loop. I went around in circles quite a bit, 
 
 ```python
 #! /usr/bin/python3
