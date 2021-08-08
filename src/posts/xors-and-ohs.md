@@ -69,6 +69,8 @@ print(result)
 
 > Below is a series of outputs where three random keys have been XOR'd together and with the flag. Use the above properties to undo the encryption in the final line to obtain the flag.
 
+I found this challange particularly interesting. It does a great job of highlighting XOR properties and how key reuse can be dangerous even in conjunction with other keys. It is not a real-world example, but it proves several concepts.
+
 ```python
 #! /usr/bin/python3
 
@@ -80,18 +82,14 @@ print(result)
 from pwn import xor
 
 key1 = bytes.fromhex("a6c8b6733c9b22de7bc0253266a3867df55acde8635e19c73313")
-key2 = xor(
-    key1, bytes.fromhex("37dcb292030faa90d07eec17e3b1c6d8daf94c35d4c9191a5e1e")
-)
-key3 = xor(
-    key2, bytes.fromhex("c1545756687e7573db23aa1c3452a098b71a7fbf0fddddde5fc1")
-)
-flag = xor(
-    bytes.fromhex("04ee9855208a2cd59091d04767ae47963170d1660df7f56f5faf"),
-    key1,
-    key2,
-    key3,
-)
+result1 = bytes.fromhex("37dcb292030faa90d07eec17e3b1c6d8daf94c35d4c9191a5e1e")
+result2 = bytes.fromhex("c1545756687e7573db23aa1c3452a098b71a7fbf0fddddde5fc1")
+result3 = bytes.fromhex("04ee9855208a2cd59091d04767ae47963170d1660df7f56f5faf")
+
+key2 = xor(key1, result1)
+key3 = xor(key2, result2)
+flag = xor(result3, key1, key2, key3)
+
 print(flag)
 ```
 
@@ -99,13 +97,15 @@ print(flag)
 
 > I've hidden my data using XOR with a single byte. Don't forget to decode from hex first.
 
+This challenge shows a more brute force method of decrypting. Though as you can see, its only useful if you know at least part of the original plain text.
+
 ```python
 from pwn import xor
 
 test = bytes.fromhex(
     "73626960647f6b206821204f21254f7d694f7624662065622127234f726927756d"
 )
-for i in range(0, 257):
+for i in range(0, 256):
     result = xor(test, i).decode("utf-8")
     if "crypto" in result:
         print(result)
@@ -115,19 +115,20 @@ for i in range(0, 257):
 
 > I've encrypted the flag with my secret key, you'll never be able to guess it.
 
+Lastly, this one took me for a bit of a loop. I went around in circles quite a.bit, 
+
 ```python
 #! /usr/bin/python3
 from pwn import xor
 
-encrypted_msg = "0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104"
-encrypted_msg = bytes.fromhex(encrypted_msg)
-
+encrypted_msg = bytes.fromhex("0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104")
 flag_format = b"crypto{"
 
 key = [o1 ^ o2 for (o1, o2) in zip(encrypted_msg, flag_format)] + [ord("y")]
 
 key_len = len(key)
 flag = xor(bytes(key), encrypted_msg)
+
 print("Flag:")
 print(flag)
 ```
