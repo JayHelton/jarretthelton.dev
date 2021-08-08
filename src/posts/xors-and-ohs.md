@@ -6,7 +6,7 @@ description: XOR is one of those bit operators that escapes the mainstream
   software safe. Let's find out why.
 author: Jarrett Helton
 date: 2021-08-08T00:39:42.722Z
-draft: true
+draft: false
 tags:
   - cryptography
   - python
