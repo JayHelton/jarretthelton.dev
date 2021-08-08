@@ -12,13 +12,11 @@ tags:
   - python
   - cryptohack
 ---
-![CryptoHack – A fun free platform for learning cryptography](https://cryptohack.org/static/img/banner.png)
+![CryptoHack – A fun free platform for learning cryptography](https://cryptohack.org/static/img/banner.png "CryptoHack")
 
 ### Introduction
 
 Over the past several months, I have been doing Capture the Flags challenges on [Cryptohack](https://cryptohack.org). Cryptohack is a platform for learning practical cryptography with game-like challenges. I love the platform, because it doesn't require you to leetcode the solution with the best Big-O time complexity. Instead, you just need to get the flag any way possible.
-
-
 
 ### XOR and Symmetric Encryption
 
