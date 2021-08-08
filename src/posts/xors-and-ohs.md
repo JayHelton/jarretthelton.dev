@@ -35,8 +35,6 @@ Here is an example on a couple of nibbles:
 | 0        | 1        | 1      |
 | 1        | 1        | 0      |
 
-
-
 Decryption using XOR looks exactly like encryption, but reversed:
 
 `Encryption: secret XOR message = ciphertext`
@@ -49,47 +47,90 @@ Many asymmetric and symmetric cryptography algorithms use XOR as a component. Th
 
 Because of this, the one-time pad, or XOR cipher, is a truly unbreakable encryption algorithm if you only use a secret key once (key reuse with an XOR cipher is a big no-no). It's not very practical, because the key would have to be as long as the message so that the XOR has enough bits to operate on. This is why we have Steam Ciphers... That's a whole different rabbit hole though.
 
-
-
 ### Cryptohack Challenges
 
 With the basics out of the way, let's look at some of these "General" XOR problems on Cryptohack.
-
-
 
 ###### XOR Starter
 
 > Given the string `"label"`, XOR each character with the integer `13`. Convert these integers back to a string and submit the flag as `crypto{new_string}`.
 
-```
+```python
+#! /usr/bin/python3
+test = "label"
+result = ""
+for c in test:
+    result = result + chr(ord(c) ^ 13)
 
+print(result)
 ```
 
 ###### XOR Properties
 
 > Below is a series of outputs where three random keys have been XOR'd together and with the flag. Use the above properties to undo the encryption in the final line to obtain the flag.
 
-```
+```python
+#! /usr/bin/python3
 
+# Commutative: A ⊕ B = B ⊕ A
+# Associative: A ⊕ (B ⊕ C) = (A ⊕ B) ⊕ C
+# Identity: A ⊕ 0 = A
+# Self-Inverse: A ⊕ A = 0
+
+from pwn import xor
+
+key1 = bytes.fromhex("a6c8b6733c9b22de7bc0253266a3867df55acde8635e19c73313")
+key2 = xor(
+    key1, bytes.fromhex("37dcb292030faa90d07eec17e3b1c6d8daf94c35d4c9191a5e1e")
+)
+key3 = xor(
+    key2, bytes.fromhex("c1545756687e7573db23aa1c3452a098b71a7fbf0fddddde5fc1")
+)
+flag = xor(
+    bytes.fromhex("04ee9855208a2cd59091d04767ae47963170d1660df7f56f5faf"),
+    key1,
+    key2,
+    key3,
+)
+print(flag)
 ```
 
 ###### Favorite Byte
 
 > I've hidden my data using XOR with a single byte. Don't forget to decode from hex first.
 
-```
+```python
+from pwn import xor
 
+test = bytes.fromhex(
+    "73626960647f6b206821204f21254f7d694f7624662065622127234f726927756d"
+)
+for i in range(0, 257):
+    result = xor(test, i).decode("utf-8")
+    if "crypto" in result:
+        print(result)
 ```
 
 ###### You either know, XOR you don't
 
 > I've encrypted the flag with my secret key, you'll never be able to guess it.
 
+```python
+#! /usr/bin/python3
+from pwn import xor
+
+encrypted_msg = "0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104"
+encrypted_msg = bytes.fromhex(encrypted_msg)
+
+flag_format = b"crypto{"
+
+key = [o1 ^ o2 for (o1, o2) in zip(encrypted_msg, flag_format)] + [ord("y")]
+
+key_len = len(key)
+flag = xor(bytes(key), encrypted_msg)
+print("Flag:")
+print(flag)
 ```
-
-```
-
-
 
 ### Conclusion
 
