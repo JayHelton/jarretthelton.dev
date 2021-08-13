@@ -1,4 +1,4 @@
-<section class="container body-font overflow-hidden">
+<section class="container body-font">
   {% set postslist = collections.post %}
   <div class="container px-5 py-20 grid divide-y divide-white">
     {% for post in postslist | reverse %}
@@ -12,7 +12,7 @@
         <div class="mb-4 text-gray-100">
             <h2 class="text-md">{{post.data.description}}</h2>
         </div>
-        <div class="flex-shrink-0 flex flex-row">
+        <div class="flex-shrink-0 flex flex-row flex-wrap gap-2">
         {% for tag in post.data.tags %}
         {% if tag != "post" %}
         <span class="rounded-full py-1 px-2 mr-2 bg-pink-700 text-sm">{{tag}}</span>
