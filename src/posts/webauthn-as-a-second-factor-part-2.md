@@ -9,6 +9,8 @@ tags:
   - cryptography
   - programming
   - javascript
+  - authentication
+  - cybersecurity
 ---
 
 ![WebAuthn Fido](blob:https://jarretthelton.dev/2430c93c-f6d6-437d-8a02-e67c72198325 "WebAuthn Fido")
