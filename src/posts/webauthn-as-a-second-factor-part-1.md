@@ -16,6 +16,12 @@ tags:
 ---
 ## Introduction
 
+At its core, WebAuthn, or Web Authentication, is a web standard published by W3C. It is a component of the FIDO2 specifications alongside CTAP2. WebAuthn is a web-based API that provides an easy-to-use abstraction for user authentication using support devices. CTAP2 and WebAuthn use advanced asymmetric cryptography to establish identity and trust between a user and a service.
+
+With the evolution of the internet and cybersecurity, it became clear that password credentials and two-factor authentication were not enough to provide users with the necessary account safety. The most common 2FA methods, like SMS and OTP, are vulnerable to phishing attacks and ultimately provide low confidence in user account security.
+
+WebAuthn is aiming to provide a solution to these problems.
+
 In this post, we will look at how to use [SimpleWebAuthn](https://simplewebauthn.dev/) to leverage the WebAuthn specification and APIs to create a safe and efficient second factor for account MFA. 
 
 This content was initially created as a proposed cookbook for the library. It is one-third of the scenarios covered in the cookbook - MFA, Passwordless, and Usernameless.
@@ -78,7 +84,7 @@ We will start by looking at the login and signup page. There is not a lot going 
 </div>
 ```
 
-The signup route will be the first to make use of our server-side state. The route will handle sign-up and sign-in. In this case, we are sining up a new user.
+The signup route will be the first to make use of our server-side state. The route will handle sign-up and sign-in. In this case, we are signing up a new user.
 
 We have an in-memory dictionary to mock a database. Once we extract the username and password from the request body, we persist the user in our "database." 
 
@@ -117,7 +123,7 @@ app.post("/login", (req, res) => {
 ```
 
 Once the user is saved in our database, we can mark the user as logged in, add a cookie to the request so we do not lose our session, and redirect them to the profile page.
-This user can now log out and log in back in. Since they do not have any regsiterd devices, we will not require MFA.
+This user can now log out and log in back in. Since they do not have any registered devices, we will not require MFA.
 
 > ***Important***: In a real server, it is very important that the cookie added to the response is some type of signed token, like a JWT, containing the state of the session. The signed cookie should be validated upon every request.
 > `$ public/profile/index.html`
@@ -143,9 +149,9 @@ The profile page will spit out our user details. On this page, we can decide to 
 ### WebAuthn Attestation
 
 With WebAuthn, there are two types of certificates used for registration and authentication. These are attestation and assertion. Both are requests that are made to a WebAuthn-supported device that result in payloads that will be validated and verified by the browser and the server.
-Attestation is used to verify that the device used is genuine and contains specific characteristics, and can be used to make sure a device is real hardware. A relying party (the service responsible for authentication) can also use the attestatioin cerrtificate to ensure the brand of devices used. This is a complex use case that will not be covered in these examples. We will consider attestation as just the method for generating a new credential key pair.
+Attestation is used to verify that the device used is genuine and contains specific characteristics, and can be used to make sure a device is real hardware. A relying party (the service responsible for authentication) can also use the attestation certificate to ensure the brand of devices used. This is a complex use case that will not be covered in these examples. We will consider attestation as just the method for generating a new credential key pair.
  Since our new user wants a second factor, we need to create a WebAuthn credential to act as the second factor.
-The WebAuthn Attestation page has a handful of responsibilites.
+The WebAuthn Attestation page has a handful of responsibilities.
  We start off with grabbing the `startAttestation` and `supportsWebauthn` methods from `SimpleWebAuthnBrowser` package. Before trying to use the WebAuthn API, it is important to check that the API is available in the browser being used.
 
  `$ public/two-factor/webauthn/webauthn.js`
@@ -207,18 +213,17 @@ router.get("/generate-attestation-options", (req, res) => {
 });
 ```
 
-  Using our mock session cookie, we can query for our user from the database. We will want extract the username and any devices the current user has, in case they are an existing user registering a new type of device. 
+  Using our mock session cookie, we can query for our user from the database. We want extract the username and any devices the current user has, in case they are an existing user registering a new type of device. 
 
  WebAuthn scopes each new key pair to a specific relying party. Because of this scoping, we have to pass information about the organization that owns the service into our options. `rpName` and `rpID` are the name and domain of the organization, in that order. 
 
-The `userId` is a special value, and one that we will see in more depth starting with \[[4 -  WebAuthn Usernameless]]. This is *not* the unique identifier that the resource or authorization server use as a primary key in their database. Instead, it is a randomly generated string, preferrably 64 bytes, that will be used specifically for associating authenticators to a user account. This *cannot* be private information or a string that can be used to identify someone outside of your system. This is often called the `user handle` and should be used as the `userId` for all WebAuthn authenticators registered with the account. You can just save it as a column or property in your database with your user.
+The `userId` is a special value, and one that we will see in more depth starting with \[[4 -  WebAuthn Usernameless]]. This is *not* the unique identifier that the resource or authorization server uses as a primary key in their database. Instead, it is a randomly generated string, preferably 64 bytes, that will be used specifically for associating authenticators to a user account. This *cannot* be private information or a string that can be used to identify someone outside of your system. This is often called the `user handle` and should be used as the `userId` for all WebAuthn authenticators registered with the account. You can just save it as a column or property in your database with your user.
 
 The `timeout` property seems self-explanatory, but it's important. It allows us to specify the amount of time we want to allow a user to spend finding their devices, connecting them, and using them. `attestationType` specifies what type of attestation data we want to receive from the authenticator's attestation response. We will leave it as indirect, meaning the server will accept anonymized attestation data.
 Next is `excludeCredentials`. This option can include the credentials of previously registered devices, which allows the relying party to prevent a user from using the same device to create multiple credentials. The `transports` property indicates the transport protocol allowed.
 
 Lastly, we have `authenticatorSelection`. `userVerification` is a property to determine if a local authentication ceremony, like a pin code, should be performed.
 Now that we have covered the basics of our attestation options, we have to look at arguably the most important variable in the whole ceremony: the `challenge`. SimpleWebAuthn allows the server to generate its own challenge, however, if one is not provided the library will create one for you. This value ultimately becomes base64 encoded, which the authenticator will sign later. We add it onto our user's record in the database for use in attestation verification.
-
 
 It is very important that the challenges are persisted on the user in our state or database.\
 
