@@ -14,6 +14,8 @@ tags:
   - cybersecurity
   - programming
 ---
+![WebAuthn Fido](/static/img/webauthn-fido2.png "WebAuthn Fido")
+
 ## Introduction
 
 At its core, WebAuthn, or Web Authentication, is a web standard published by W3C. It is a component of the FIDO2 specifications alongside CTAP2. WebAuthn is a web-based API that provides an easy-to-use abstraction for user authentication using support devices. CTAP2 and WebAuthn use advanced asymmetric cryptography to establish identity and trust between a user and a service.
