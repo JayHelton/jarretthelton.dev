@@ -9,6 +9,8 @@ tags:
   - cybersecurity
   - hackthebox
 ---
+![New Machine - PIT - Linux - Worth 50 points - Mediume difficulty](/static/img/pithtb.jpeg "Pit Hack the Boc")
+
 ### Introduction
 
 ### Enumeration
@@ -17,6 +19,6 @@ tags:
 
 ### Finding the User Flag
 
-### Privledge Escalation
+### Privilege Escalation
 
 ### Conclusion
