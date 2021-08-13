@@ -1,5 +1,5 @@
 ---
-title: Hack the Box Challenge - Emdee 5 For Life
+title: "Hack the Box Challenges: Emdee 5 For Life"
 description: A quick write-up for the Emdee 5 For Life challenge on Hack the Box!
 author: Jarrett Helton
 date: 2021-08-13T00:37:57.555Z
