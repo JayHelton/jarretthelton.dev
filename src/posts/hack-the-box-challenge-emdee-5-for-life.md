@@ -21,13 +21,15 @@ The challenge details are simply:
 
 > Can you encrypt fast enough?
 
-
-
 ### Details
 
 The webpage itself is very basic. There is a random value in a header and a small form. The page just tells you to "Encrypt this string".  I used [MD5Online](https://www.md5online.org/md5-encrypt.html) to do a quick hash of the first value and submitted it. 
 
-Submitting this way just leads to a "Too Slow" message. I tried to manually move faster, but after an attempt or two of trying to be The Flash, I moved over to scripting.
+Submitting this way just leads to a "Too Slow" message.
+
+![Webpage showing the title MD5 encrypt this string, with a random text value, a subtitle saying too slow, and a form with a button](/static/img/screen-shot-2021-08-12-at-8.46.39-pm.png "Emdee for life page")
+
+I tried to manually move faster, but after an attempt or two of trying to be The Flash, I moved over to scripting.
 
 There are a few steps we need to do:
 
@@ -73,13 +75,9 @@ def main():
 main()
 ```
 
-
-
 Suprisingly enough, this is all you need! 
 
 The flag was returned and the challenge was complete!
-
-
 
 ### Conclusion
 
