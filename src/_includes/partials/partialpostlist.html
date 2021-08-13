@@ -5,7 +5,7 @@
     {% if not post.data.draft %}
     {% if tag in post.data.tags %}
     <a  href="{{ post.url | url }}"> 
-      <div class="w-auto hover:bg-gray-600 p-8 rounded-l-lg flex">
+      <div class="hover:bg-gray-600 p-8 rounded-l-lg">
         <div class="mb-4">
             <h2 class="text-3xl font-medium title-font">{{post.data.title}}</h2>
         </div>
@@ -13,7 +13,7 @@
         <div class="mb-4 text-gray-100">
             <h2 class="text-md">{{post.data.description}}</h2>
         </div>
-        <div class="flex-shrink-0 flex flex-row">
+        <div class="flex-shrink-0 flex flex-row flex-wrap gap-2">
           {% for tag in post.data.tags %}
           {% if tag != "post" %}
           <span class="rounded-full py-1 px-2 mr-2 bg-pink-700 text-sm">{{tag}}</span>
