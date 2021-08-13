@@ -16,6 +16,12 @@ tags:
 ---
 ## Introduction
 
+At its core, WebAuthn, or Web Authentication, is a web standard published by W3C. It is a component of the FIDO2 specifications alongside CTAP2. WebAuthn is a web-based API that provides an easy-to-use abstraction for user authentication using support devices. CTAP2 and WebAuthn use advanced asymmetric cryptography to establish identity and trust between a user and a service.
+
+With the evolution of the internet and cybersecurity, it became clear that password credentials and two-factor authentication were not enough to provide users with the necessary account safety. The most common 2FA methods, like SMS and OTP, are vulnerable to phishing attacks and ultimately provide low confidence in user account security.
+
+WebAuthn is aiming to provide a solution to these problems.
+
 In this post, we will look at how to use [SimpleWebAuthn](https://simplewebauthn.dev/) to leverage the WebAuthn specification and APIs to create a safe and efficient second factor for account MFA. 
 
 This content was initially created as a proposed cookbook for the library. It is one-third of the scenarios covered in the cookbook - MFA, Passwordless, and Usernameless.
@@ -218,7 +224,6 @@ Next is `excludeCredentials`. This option can include the credentials of previou
 
 Lastly, we have `authenticatorSelection`. `userVerification` is a property to determine if a local authentication ceremony, like a pin code, should be performed.
 Now that we have covered the basics of our attestation options, we have to look at arguably the most important variable in the whole ceremony: the `challenge`. SimpleWebAuthn allows the server to generate its own challenge, however, if one is not provided the library will create one for you. This value ultimately becomes base64 encoded, which the authenticator will sign later. We add it onto our user's record in the database for use in attestation verification.
-
 
 It is very important that the challenges are persisted on the user in our state or database.\
 
