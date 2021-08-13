@@ -28,7 +28,7 @@ In this post, we will look at how to use [SimpleWebAuthn](https://simplewebauthn
 
 This content was initially created as a proposed cookbook for the library. It is one-third of the scenarios covered in the cookbook - MFA, Passwordless, and Usernameless.
 
-Because it was intended as a cookbook scenario, the content is longer than an average post.
+Because it was intended as a cookbook scenario, the content is longer than an average post. All code examples for these posts are heavily based off of the example code in the [SimpleWebAuthn Github repo](https://github.com/MasterKale/SimpleWebAuthn/tree/master/example). The exact code has not found a permanent repository. When it does, these posts will be updated with links to the sources.
 
 ## What is MFA?
 
