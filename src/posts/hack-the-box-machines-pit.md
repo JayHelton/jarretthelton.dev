@@ -9,7 +9,7 @@ tags:
   - cybersecurity
   - hackthebox
 ---
-![New Machine - PIT - Linux - Worth 50 points - Mediume difficulty](/static/img/pithtb.jpeg "Pit Hack the Boc")
+![New Machine - PIT - Linux - Worth 50 points - Medium difficulty](/static/img/pithtb.jpeg "Pit Hack the Box")
 
 ### Introduction
 
