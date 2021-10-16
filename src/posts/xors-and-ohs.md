@@ -11,6 +11,7 @@ tags:
   - cryptography
   - python
   - cryptohack
+  - programming
 ---
 ![CryptoHack – A fun free platform for learning cryptography](https://cryptohack.org/static/img/banner.png "CryptoHack")
 
