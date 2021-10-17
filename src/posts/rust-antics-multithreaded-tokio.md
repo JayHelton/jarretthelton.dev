@@ -239,7 +239,7 @@ Nothing mind blowing here. Just a simulation of actual work.
 #### Conclusion
 
 The experiment itself is not very exciting. I used this as a goal-oriented excuse to dive deeper into Tokio and Rusts async/multithreaded ecosystem. I watched countless hours of Jon Gjengsets Youtube channel. \
-I can honestly say that I have a much better grasp on Rust as a language and Rust's concurrency and multithreaded story.\
+I can honestly say that I have a much better grasp on Rust as a language and Rust's concurrency and multithreaded story.
 
 My next Rust Antics post will be about hacking my own DNS Nameserver.
 
