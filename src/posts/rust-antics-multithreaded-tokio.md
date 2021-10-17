@@ -8,7 +8,7 @@ tags:
   - rust
   - programming
 ---
-#### Introduction
+### **Introduction**
 
 There is an interesting strategy for load shedding for a CPU intensive HTTP server. The context I learned this was with Node, but I decided to experiment with Rust and Tokio. The idea is simple - accept requests for a CPU intensive operation that is long enough to prevent concurrency, but not long enough to warrant an event-based pattern (like a pub/sub or queue).
 
@@ -18,7 +18,7 @@ Concurrency is, more or less, the ability for a single thread to make progress o
 
 So, my experiment was very simple. Create an HTTP server that accepts requests for a blocking task. If a request is made to the server while it can no longer handle any new tasks, reject the request with a 429 (too many requests). This is a very basic implementation of load shedding.
 
-#### Details
+### Details
 
 I used Axum and Tokio for this.\
 \
@@ -236,14 +236,14 @@ fn increment(state: AppState) {
 
 Nothing mind blowing here. Just a simulation of actual work.
 
-#### Conclusion
+### Conclusion
 
 The experiment itself is not very exciting. I used this as a goal-oriented excuse to dive deeper into Tokio and Rusts async/multithreaded ecosystem. I watched countless hours of Jon Gjengsets Youtube channel. \
 I can honestly say that I have a much better grasp on Rust as a language and Rust's concurrency and multithreaded story.
 
 My next Rust Antics post will be about hacking my own DNS Nameserver.
 
-##### References:
+#### References:
 
 * <https://www.youtube.com/c/jongjengset>
 * <https://github.com/tower-rs/tower/tree/master/guides>
