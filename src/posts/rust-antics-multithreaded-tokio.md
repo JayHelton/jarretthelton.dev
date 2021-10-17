@@ -3,7 +3,7 @@ title: Rust Antics - CPU Intensive Tasks in a Web Server
 description: Playing around with Rust one idea at a time.
 author: Jarrett Helton
 date: 2021-10-16T23:02:34.335Z
-draft: true
+draft: false
 tags:
   - rust
   - programming
