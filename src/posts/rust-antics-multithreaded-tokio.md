@@ -22,7 +22,7 @@ So, my experiment was very simple. Create an HTTP server that accepts requests f
 
 I used Axum and Tokio for this.\
 \
-Github: <https://github.com/JayHelton/learning_playground/blob/main/rust/http_cpu_test/src/bin/server.rs>\
+[Github Link](https://github.com/JayHelton/learning_playground/blob/main/rust/http_cpu_test/src/bin/server.rs).\
 \
 Here is the main entry point: 
 
